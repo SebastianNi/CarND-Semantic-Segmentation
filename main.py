@@ -55,25 +55,25 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     """
 
     # Encoder
-    vgg3 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1, strides=(1, 1), padding='SAME', activation=tf.nn.relu,
+    vgg3 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1, strides=(1, 1), padding='SAME',
                             kernel_initializer=tf.truncated_normal_initializer(stddev=0.001))
 
-    vgg4 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1, strides=(1, 1), padding='SAME', activation=tf.nn.relu,
+    vgg4 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1, strides=(1, 1), padding='SAME',
                             kernel_initializer=tf.truncated_normal_initializer(stddev=0.001))
 
-    vgg7 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1, strides=(1, 1), padding='SAME', activation=tf.nn.relu,
+    vgg7 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1, strides=(1, 1), padding='SAME',
                             kernel_initializer=tf.truncated_normal_initializer(stddev=0.001))
 
     # Decoder
-    vgg7_t = tf.layers.conv2d_transpose(vgg7, num_classes, 4, strides=(2, 2), padding='SAME', activation=None,
+    vgg7_t = tf.layers.conv2d_transpose(vgg7, num_classes, 4, strides=(2, 2), padding='SAME',
                                         kernel_initializer=tf.truncated_normal_initializer(stddev=0.001))
 
     vgg4_s = tf.add(vgg4, vgg7_t)
-    vgg4_t = tf.layers.conv2d_transpose(vgg4_s, num_classes, 8, strides=(2, 2), padding='SAME', activation=None,
+    vgg4_t = tf.layers.conv2d_transpose(vgg4_s, num_classes, 8, strides=(2, 2), padding='SAME',
                                         kernel_initializer=tf.truncated_normal_initializer(stddev=0.001))
 
     vgg3_s = tf.add(vgg3, vgg4_t)
-    vgg3_t = tf.layers.conv2d_transpose(vgg3_s, num_classes, 16, strides=(8, 8), padding='SAME', activation=None,
+    vgg3_t = tf.layers.conv2d_transpose(vgg3_s, num_classes, 16, strides=(8, 8), padding='SAME',
                                         kernel_initializer=tf.truncated_normal_initializer(stddev=0.001))
 
     return vgg3_t
@@ -145,7 +145,7 @@ tests.test_train_nn(train_nn)
 
 
 def run():
-    epochs = 12
+    epochs = 10
     batch_size = 8
     num_classes = 2
     image_shape = (160, 576)
@@ -184,6 +184,8 @@ def run():
 
         # Save inference data using helper.save_inference_samples
         helper.save_inference_samples(runs_dir, data_dir, sess, image_shape, logits, keep_prob, input_image)
+
+        # OPTIONAL: Apply the trained model to a video
 
 
 if __name__ == '__main__':
