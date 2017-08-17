@@ -1,6 +1,11 @@
 # Semantic Segmentation
+Self-Driving Car Engineer Nanodegree Program
 ### Introduction
 In this project, you'll label the pixels of a road in images using a Fully Convolutional Network (FCN).
+
+<img src="image.png" width="900" alt="Combined Image" />
+
+This image is an example output of the project were the street has been highlighted. It is a processed image from the [Kitti Road dataset](http://www.cvlibs.net/datasets/kitti/eval_road.php). The dataset can be downloaded from [here](http://www.cvlibs.net/download.php?file=data_road.zip).
 
 ### Setup
 ##### Frameworks and Packages
